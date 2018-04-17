@@ -50,32 +50,34 @@ class App extends React.Component {
     return (
       <div className="container">
          <div className="my-3">
+            <ul className="List-group">
               {this.state.data.map( (data, index) =>
-               <div key={index} >
-                <li>{data.name}</li>
-                <li>{data.content}</li>
-                <li>{data.order}</li>
-                </div>
-              )}
-
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label>Name</label><br />
-            <input className="form-control" onChange={this.handleChange} type="textarea" id="nameInput" />
-          </div>
-            <br />
-          <div className="form-group">
-            <label>Content</label><br />
-            <input   className="form-control" onChange={this.handleChange} type="textarea" id="contentInput" />
-          </div>
-            <br />
-          <div className="form-group">                       
-            <label>Order</label><br />
-            <input className="form-control" onChange={this.handleChange} type="textarea" id="orderInput" />
-          </div>
-            <br />
-          <button className="btn btn-primary" onChange={(e) =>this.handleChange(e)} type="submit" value="Submit">Submit </button>
-          </form>
+              <div key={index} >
+                <h2>{data.name}</h2>
+                <p>{data.content}</p>
+                <p>{data.order}</p>
+              </div>
+                )}
+            </ul>
+          <h2>List of all posts:</h2>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Name</label><br />
+              <input className="form-control" onChange={this.handleChange} type="textarea" id="nameInput" />
+            </div>
+              <br />
+            <div className="form-group">
+              <label>Content</label><br />
+              <input   className="form-control" onChange={this.handleChange} type="textarea" id="contentInput" />
+            </div>
+              <br />
+            <div className="form-group">                       
+              <label>Order</label><br />
+              <input className="form-control" onChange={this.handleChange} type="textarea" id="orderInput" />
+            </div>
+              <br />
+            <button className="btn btn-primary" onChange={(e) =>this.handleChange(e)} type="submit" value="Submit">Submit </button>
+            </form>
       </div>
           </div>
           

@@ -37019,27 +37019,36 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'my-3' },
-          this.state.data.map(function (data, index) {
-            return _react2.default.createElement(
-              'div',
-              { key: index },
-              _react2.default.createElement(
-                'li',
-                null,
-                data.name
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                data.content
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                data.order
-              )
-            );
-          }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'List-group' },
+            this.state.data.map(function (data, index) {
+              return _react2.default.createElement(
+                'div',
+                { key: index },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  data.name
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  data.content
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  data.order
+                )
+              );
+            })
+          ),
+          _react2.default.createElement(
+            'h2',
+            null,
+            'List of all posts:'
+          ),
           _react2.default.createElement(
             'form',
             { onSubmit: this.handleSubmit },
