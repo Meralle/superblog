@@ -11,6 +11,7 @@
     "start": "node server/server.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -34,9 +35,10 @@
     "webpack-node-externals": "^1.6.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "concurrently": "^3.5.0",
     "eslint": "^4.9.0",
     "eslint-plugin-react": "^7.4.0",
-    "concurrently": "^3.5.0",
     "nodemon": "^1.12.1"
   },
   "babel": {
