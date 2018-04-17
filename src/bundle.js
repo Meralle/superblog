@@ -36986,7 +36986,7 @@ var App = function (_React$Component) {
       var _this3 = this;
 
       event.preventDefault();
-      console.log(event.target.elements);
+      console.log(event);
       var form = this.state.form;
       _axios2.default.post('http://localhost:5000/api/posts', form).then(function (response) {
         console.log("Slide added successful: ", response);
@@ -37003,6 +37003,7 @@ var App = function (_React$Component) {
     key: 'handleChange',
     value: function handleChange(e) {
       e.preventDefault();
+      // console.log(e)
       var sendPost = Object.assign({}, this.state.form);
       sendPost[e.target.id] = e.target.value;
       this.setState({ form: sendPost });
@@ -37014,76 +37015,78 @@ var App = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
-        this.state.data.map(function (data, index) {
-          return _react2.default.createElement(
-            'div',
-            { key: index },
-            _react2.default.createElement(
-              'li',
-              null,
-              data.name
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              data.content
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              data.order
-            )
-          );
-        }),
+        { className: 'container' },
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit },
+          'div',
+          { className: 'my-3' },
+          this.state.data.map(function (data, index) {
+            return _react2.default.createElement(
+              'div',
+              { key: index },
+              _react2.default.createElement(
+                'li',
+                null,
+                data.name
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                data.content
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                data.order
+              )
+            );
+          }),
           _react2.default.createElement(
-            'div',
-            null,
+            'form',
+            { onSubmit: this.handleSubmit },
             _react2.default.createElement(
-              'label',
-              null,
-              'Name'
+              'div',
+              { className: 'form-group' },
+              _react2.default.createElement(
+                'label',
+                null,
+                'Name'
+              ),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', { className: 'form-control', onChange: this.handleChange, type: 'textarea', id: 'nameInput' })
             ),
             _react2.default.createElement('br', null),
-            _react2.default.createElement('input', { onClick: function onClick(e) {
-                return _this4.handleChange(e);
-              }, type: 'text', id: 'nameInput' })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'div',
-            null,
             _react2.default.createElement(
-              'label',
-              null,
-              'Content'
+              'div',
+              { className: 'form-group' },
+              _react2.default.createElement(
+                'label',
+                null,
+                'Content'
+              ),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', { className: 'form-control', onChange: this.handleChange, type: 'textarea', id: 'contentInput' })
             ),
             _react2.default.createElement('br', null),
-            _react2.default.createElement('input', { onClick: function onClick(e) {
-                return _this4.handleChange(e);
-              }, type: 'text', id: 'contentInput' })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'div',
-            null,
             _react2.default.createElement(
-              'label',
-              null,
-              'Order'
+              'div',
+              { className: 'form-group' },
+              _react2.default.createElement(
+                'label',
+                null,
+                'Order'
+              ),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', { className: 'form-control', onChange: this.handleChange, type: 'textarea', id: 'orderInput' })
             ),
             _react2.default.createElement('br', null),
-            _react2.default.createElement('input', { onClick: function onClick(e) {
-                return _this4.handleChange(e);
-              }, type: 'text', id: 'orderInput' })
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { onClick: function onClick(e) {
-              return _this4.handleChange(e);
-            }, type: 'submit', value: 'Submit' })
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-primary', onChange: function onChange(e) {
+                  return _this4.handleChange(e);
+                }, type: 'submit', value: 'Submit' },
+              'Submit '
+            )
+          )
         )
       );
     }

@@ -26,7 +26,7 @@ class App extends React.Component {
 
    handleSubmit(event) {
     event.preventDefault();
-    console.log(event.target.elements);
+    console.log(event)
     let form = this.state.form
     axios.post('http://localhost:5000/api/posts', form).then(response => {
       console.log("Slide added successful: ", response);
@@ -40,44 +40,47 @@ class App extends React.Component {
 
   handleChange(e){
     e.preventDefault();
-   const sendPost = {...this.state.form}
+    // console.log(e)
+  let sendPost = {...this.state.form}
    sendPost[e.target.id]=e.target.value;
    this.setState({form : sendPost});
   }
 
   render() {
     return (
+      <div className="container">
+         <div className="my-3">
+              {this.state.data.map( (data, index) =>
+               <div key={index} >
+                <li>{data.name}</li>
+                <li>{data.content}</li>
+                <li>{data.order}</li>
+                </div>
+              )}
 
-      <div>
-
-      {this.state.data.map( (data, index) =>
-       <div key={index} >
-        <li>{data.name}</li>
-        <li>{data.content}</li>
-        <li>{data.order}</li>
-        </div>
-      )}
-
-      
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label>Name</label><br />
-          <input onClick={(e) =>this.handleChange(e)} type="text" id="nameInput" />
-        </div>
-        <br />
-        <div>
-          <label>Content</label><br />
-          <input onClick={(e) =>this.handleChange(e)} type="text" id="contentInput" />
-        </div>
-        <br />
-          <div>
-          <label>Order</label><br />
-          <input onClick={(e) =>this.handleChange(e)} type="text" id="orderInput" />
-        </div>
-        <br />
-        <input onClick={(e) =>this.handleChange(e)} type="submit" value="Submit"/>
-        </form>
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label>Name</label><br />
+            <input className="form-control" onChange={this.handleChange} type="textarea" id="nameInput" />
+          </div>
+            <br />
+          <div className="form-group">
+            <label>Content</label><br />
+            <input   className="form-control" onChange={this.handleChange} type="textarea" id="contentInput" />
+          </div>
+            <br />
+          <div className="form-group">                       
+            <label>Order</label><br />
+            <input className="form-control" onChange={this.handleChange} type="textarea" id="orderInput" />
+          </div>
+            <br />
+          <button className="btn btn-primary" onChange={(e) =>this.handleChange(e)} type="submit" value="Submit">Submit </button>
+          </form>
       </div>
+          </div>
+          
+            
+     
     );
   }
 }
