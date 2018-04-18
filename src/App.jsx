@@ -60,6 +60,7 @@ class App extends React.Component {
     .then(response => response.json())
     .then(posts => {
       this.setState({posts : posts});
+      M.toast({html: 'Post delete successfully!'})
     });
   }).catch(function(error){
     console.log("Error: ", error);
@@ -74,6 +75,7 @@ handleUpdate(event, post){
     fetch(`http://localhost:5000/api/posts`).then(response.json())
     .then(posts => {
       this.setState({posts : posts, editing: null});
+        M.toast({html: 'Post updated successfully!'})
     });
   }).catch(function(error){
     console.log("Error: ", error);
@@ -95,21 +97,21 @@ handleEdit(post) {
             <div className="form-group">
               <label className="w-100">
               Name
-              <input className="form-control" defaultValue={this.state.editing.name} onChange={this.handleChange} type="textarea" id="name" />
+              <input className="materialize-textarea" defaultValue={this.state.editing.name} onChange={this.handleChange} type="textarea" id="name" />
               </label>
             </div>
               
             <div className="form-group">
               <label className="w-100">
               Content
-              <input   className="form-control" defaultValue={this.state.editing.content} onChange={this.handleChange} type="textarea" id="content" />
+              <input   className="materialize-textarea" defaultValue={this.state.editing.content} onChange={this.handleChange} type="textarea" id="content" />
               </label>
             </div>
             
             <div className="form-group">                       
               <label className="w-100">
               Order
-              <input className="form-control" onChange={this.handleChange} type="textarea" id="order" />
+              <input className="materialize-textarea" onChange={this.handleChange} type="textarea" id="order" />
               </label>
             </div>
 
@@ -122,7 +124,8 @@ handleEdit(post) {
                 <h2>{post.name}</h2>
                 <p>{post.content}</p>
                 <p>{post.order}</p>
-                <button className="btn btn-info" onClick={() => this.handleEdit(post)}>Edit</button>
+             {/*   <button className="btn btn-info" onClick={() => this.handleEdit(post)}>Edit</button>*/}
+              <a class="btn-floating btn-large waves-effect waves-light red" onClick={() => this.handleEdit(post)}><i class="material-icons">add</i></a>
                 <button className="btn btn-danger" onClick={() => this.handleDelete(post._id)}>Remove</button>
               </li>
             )
@@ -130,7 +133,7 @@ handleEdit(post) {
       return (
       <div className="container">
        <div className="my-3">
-       <h2>List of all posts:</h2>  
+       <h2>Create a Post:</h2>  
           
            
          <form  id="form" onSubmit={this.handleSubmit}>
@@ -148,7 +151,8 @@ handleEdit(post) {
              <label>Order: </label>  
                <input  className="form-control" type="number" onChange={this.handleChange} id="order" />
            </div>    
-               <button className="btn btn-primary" type="submit">add post</button>
+            <button className="btn waves-effect waves-light" type="submit">Submit <i class="material-icons right">send</i></button>
+               
          </form>
          </div>
           <div className="my-3">
