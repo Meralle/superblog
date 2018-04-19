@@ -33,17 +33,39 @@ class App extends React.Component {
    e.preventDefault();
    console.log(e)
    let addPostForm = this.state.form;
-   axios.post(`http://localhost:5000/api/posts`, addPostForm).then(response => {
-     console.log("Slide added successful: ", response);
-       fetch(`http://localhost:5000/api/posts`).then( resp => resp.json()).then(posts => {
-         this.setState({posts: posts});
-          M.toast({html: 'Post submit successfully!'})
-     });
-   }).catch(function(error){
-     console.log("Errooooor: ", error);
-   })
- }
-      
+ //   axios.post(`http://localhost:5000/api/posts`, addPostForm).then(response => {
+ //     console.log("Slide added successful: ", response);
+ //       fetch(`http://localhost:5000/api/posts`).then( resp => resp.json()).then(posts => {
+ //         this.setState({posts: posts});
+ //          M.toast({html: 'Post submit successfully!'})
+ //     });
+ //   }).catch(function(error){
+ //     console.log("Errooooor: ", error);
+ //   })
+ // }
+     fetch("http://localhost:5000/api/posts", {
+        method: "POST",
+        body: JSON.stringify(addPostForm),
+        headers: {
+           "contenttype": "application/json"
+         }
+       }).then(response => response.json())
+       .then(response => {
+         console.log(response)
+         let posts = {...this.state.posts}
+         let posts_array = []
+         for (let key in posts) {
+           if (posts.hasOwnProperty(key)) {
+             posts_array.push(posts[key])
+           }
+         }
+         posts_array.push(response.post)
+         this.setState({posts: posts_array});
+       });
+
+   }
+   
+   
 
   handleChange(e){
     e.preventDefault();
@@ -70,8 +92,9 @@ class App extends React.Component {
 }
 
 handleUpdate(event, post){
+
   event.preventDefault()
-  axios.put(`http://localhost:5000/api/posts/${id}`,this.state.form).then(response => {
+  axios.put(`http://localhost:5000/api/posts/${post._id}`,this.state.form).then(response => {
     console.log("Slide edited successful: " , response);
     fetch(`http://localhost:5000/api/posts`).then(response.json())
     .then(posts => {
@@ -92,6 +115,14 @@ handleEdit(post) {
 }
 
   render() {
+      const style = {
+        style1:{
+          display:"none"
+        },
+        margin:"0 1rem",
+      }
+
+
       const posttemplate = this.state.posts.map((post,i)=> 
         this.state.editing && this.state.editing._id === post._id ? (
           <form key={i} onSubmit={(event) => this.handleUpdate(event, post)}>
@@ -125,8 +156,8 @@ handleEdit(post) {
                 <h4 className="mt-0">{post.name}</h4>
                 <p>{post.content}</p>
                 <p>{post.order}</p>
-                <button className="btn-floating btn-large waves-effect waves-light red"  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
-                <button className="btn-floating btn-large waves-effect waves-light red" onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
+                <button style={style} className="btn-floating btn-large waves-effect waves-light red"  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
+                <button style={style} className="btn-floating btn-large waves-effect waves-light red" onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
               </li>
             )
         )
