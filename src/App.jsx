@@ -47,25 +47,18 @@ class App extends React.Component {
         method: "POST",
         body: JSON.stringify(addPostForm),
         headers: {
-           "contenttype": "application/json"
+           "content-type": "application/json"
          }
        }).then(response => response.json())
        .then(response => {
-         console.log(response)
-         let posts = {...this.state.posts}
-         let posts_array = []
-         for (let key in posts) {
-           if (posts.hasOwnProperty(key)) {
-             posts_array.push(posts[key])
-           }
-         }
-         posts_array.push(response.post)
-         this.setState({posts: posts_array});
+          console.log(response)
+          let posts = [...this.state.posts]
+          posts.push(response.post)
+          this.setState({posts:posts});
+          M.toast({html: 'Post submit successfully!'})
        });
 
    }
-   
-   
 
   handleChange(e){
     e.preventDefault();
@@ -75,24 +68,72 @@ class App extends React.Component {
    this.setState({form : sendPost});
   }
 
-  handleDelete(id) {
-    console.log(id);
-    axios.delete(`http://localhost:5000/api/posts/${id}`).then(response => {
-    console.log("Slide deleted successful: ", response);
-    fetch(`http://localhost:5000/api/posts`)
-    .then(response => response.json())
-    .then(posts => {
-      this.setState({posts : posts});
-      M.toast({html: 'Post delete successfully!'})
-    });
-  }).catch(function(error){
-    console.log("Error: ", error);
-  })
+  
+  //   handleDelete(id) {
+  //      console.log(id);
+  // let form = {...this.state.form};
 
-}
+  // //   axios.delete(`http://localhost:5000/api/posts/${id}`).then(response => {
+  // //   console.log("Slide deleted successful: ", response);
+  // //   fetch(`http://localhost:5000/api/posts`)
+  // //   .then(response => response.json())
+  // //   .then(posts => {
+  // //     this.setState({posts : posts});
+  // //     M.toast({html: 'Post delete successfully!'})
+  // //   });
+  // // }).catch(function(error){
+  // //   console.log("Error: ", error);
+  // // })
+ 
+     
+  //       fetch("http://localhost:5000/api/posts/${id}" , {
+  //       method: "DELETE",
+  //       body: JSON.stringify(form),
+  //       headers: {
+  //          "content-type": "application/json"
+  //     }
+
+  //     }).then(response => {
+  //       console.log("response:" , response);
+  //       fetch("http://localhost:5000/api/posts")
+  //       .then(response => response.json())
+  //       .then(posts => {
+  //       this.setState({posts : posts});
+  //       // M.toast({html: 'Post delete successfully!'})
+  //     });
+  //     }).catch(function(error){
+  //       console.log("Error: ", error);
+  //     })
+    
+  //   }
+
+handleDelete(id) {
+
+    console.log(id);
+    let form = {...this.state.form};
+    fetch(`http://localhost:5000/api/posts/${id}`, {
+      method: 'DELETE',
+      body: JSON.stringify(form),
+      headers: {
+        'content-type': 'application/json'
+      }
+
+    }).then(response => {
+      console.log("response: ", response);
+      fetch(`http://localhost:5000/api/posts`)
+      .then(resp => resp.json())
+      .then(posts => {
+      this.setState({posts: posts});
+       M.toast({html: 'Post delete successfully!'})
+      });
+      }).catch(function(error) {
+      console.log("Error: ", error);
+      })
+
+  }
+
 
 handleUpdate(event, post){
-
   event.preventDefault()
   axios.put(`http://localhost:5000/api/posts/${post._id}`,this.state.form).then(response => {
     console.log("Slide edited successful: " , response);
@@ -156,7 +197,7 @@ handleEdit(post) {
                 <h4 className="mt-0">{post.name}</h4>
                 <p>{post.content}</p>
                 <p>{post.order}</p>
-                <button style={style} className="btn-floating btn-large waves-effect waves-light red"  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
+                <button style={style} className="btn-floating btn-large waves-effect waves-light red "  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
                 <button style={style} className="btn-floating btn-large waves-effect waves-light red" onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
               </li>
             )
