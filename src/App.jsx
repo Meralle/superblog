@@ -26,6 +26,7 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleSorting = this.handleSorting.bind(this);
     
   }
 
@@ -82,29 +83,6 @@ class App extends React.Component {
   // }).catch(function(error){
   //   console.log("Error: ", error);
   // })
- // handleDelete(id) {
- //      console.log(id);
- //      let form = {...this.state.form};
- //        fetch("http://localhost:5000/api/posts/${id}" , {
- //        method: "DELETE",
- //        body: JSON.stringify(form),
- //        headers: {
- //           "content-type": "application/json"
- //      }
-
- //      }).then(response => {
- //        console.log("response:" , response);
- //        fetch("http://localhost:5000/api/posts")
- //        .then(response => response.json())
- //        .then(posts => {
- //        this.setState({posts : posts});
- //        // M.toast({html: 'Post delete successfully!'})
- //      });
- //      }).catch(function(error){
- //        console.log("Error: ", error);
- //      })
-    
- //    }
 
 handleDelete(id) {
 
@@ -180,6 +158,11 @@ handleEdit(post) {
   })
 }
 
+handleSorting(){
+  let order = this.state.posts.sort((a,b) => a.order - b.order)
+  this.setState({posts: order})
+}
+
   render() {
       const style = {
         style1:{
@@ -250,8 +233,8 @@ handleEdit(post) {
                
          </form>
          </div>
-          <div className="my-3">
-            <h2>list of all posts:</h2>
+          <div className="my-3"> 
+            <h2>list of all posts:<button style={style} className="btn-floating btn-large waves-effect waves-light" onClick={this.handleSorting}><i className="material-icons expand_less expand_more">expand_less  expand_more</i></button></h2>
             <ul className="list-group">
                {posttemplate}
             </ul>  
