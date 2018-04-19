@@ -69,43 +69,42 @@ class App extends React.Component {
   }
 
   
-  //   handleDelete(id) {
-  //      console.log(id);
-  // let form = {...this.state.form};
-
-  // //   axios.delete(`http://localhost:5000/api/posts/${id}`).then(response => {
-  // //   console.log("Slide deleted successful: ", response);
-  // //   fetch(`http://localhost:5000/api/posts`)
-  // //   .then(response => response.json())
-  // //   .then(posts => {
-  // //     this.setState({posts : posts});
-  // //     M.toast({html: 'Post delete successfully!'})
-  // //   });
-  // // }).catch(function(error){
-  // //   console.log("Error: ", error);
-  // // })
- 
-     
-  //       fetch("http://localhost:5000/api/posts/${id}" , {
-  //       method: "DELETE",
-  //       body: JSON.stringify(form),
-  //       headers: {
-  //          "content-type": "application/json"
-  //     }
-
-  //     }).then(response => {
-  //       console.log("response:" , response);
-  //       fetch("http://localhost:5000/api/posts")
-  //       .then(response => response.json())
-  //       .then(posts => {
-  //       this.setState({posts : posts});
-  //       // M.toast({html: 'Post delete successfully!'})
-  //     });
-  //     }).catch(function(error){
-  //       console.log("Error: ", error);
-  //     })
     
-  //   }
+
+  //   axios.delete(`http://localhost:5000/api/posts/${id}`).then(response => {
+  //   console.log("Slide deleted successful: ", response);
+  //   fetch(`http://localhost:5000/api/posts`)
+  //   .then(response => response.json())
+  //   .then(posts => {
+  //     this.setState({posts : posts});
+  //     M.toast({html: 'Post delete successfully!'})
+  //   });
+  // }).catch(function(error){
+  //   console.log("Error: ", error);
+  // })
+ // handleDelete(id) {
+ //      console.log(id);
+ //      let form = {...this.state.form};
+ //        fetch("http://localhost:5000/api/posts/${id}" , {
+ //        method: "DELETE",
+ //        body: JSON.stringify(form),
+ //        headers: {
+ //           "content-type": "application/json"
+ //      }
+
+ //      }).then(response => {
+ //        console.log("response:" , response);
+ //        fetch("http://localhost:5000/api/posts")
+ //        .then(response => response.json())
+ //        .then(posts => {
+ //        this.setState({posts : posts});
+ //        // M.toast({html: 'Post delete successfully!'})
+ //      });
+ //      }).catch(function(error){
+ //        console.log("Error: ", error);
+ //      })
+    
+ //    }
 
 handleDelete(id) {
 
@@ -124,7 +123,6 @@ handleDelete(id) {
       .then(resp => resp.json())
       .then(posts => {
       this.setState({posts: posts});
-       M.toast({html: 'Post delete successfully!'})
       });
       }).catch(function(error) {
       console.log("Error: ", error);
@@ -133,19 +131,46 @@ handleDelete(id) {
   }
 
 
-handleUpdate(event, post){
-  event.preventDefault()
-  axios.put(`http://localhost:5000/api/posts/${post._id}`,this.state.form).then(response => {
-    console.log("Slide edited successful: " , response);
-    fetch(`http://localhost:5000/api/posts`).then(response.json())
-    .then(posts => {
-      this.setState({posts : posts, editing: null});
-        M.toast({html: 'Post updated successfully!'})
-    });
-  }).catch(function(error){
-    console.log("Error: ", error);
-  })
+// handleUpdate(event, post){
+//   event.preventDefault()
+//   axios.put(`http://localhost:5000/api/posts/${post._id}`,this.state.form).then(response => {
+//     console.log("Slide edited successful: " , response);
+//     fetch(`http://localhost:5000/api/posts`).then(response.json())
+//     .then(posts => {
+//       this.setState({posts : posts, editing: null});
+//         M.toast({html: 'Post updated successfully!'})
+//     });
+//   }).catch(function(error){
+//     console.log("Error: ", error);
+//   })
 
+// }
+
+handleUpdate(event, post) {
+    event.preventDefault();
+    let form = this.state.form;
+    let posts = [...this.state.posts];
+    console.log(posts);
+    fetch(`http://localhost:5000/api/posts/${post._id}`, {
+      method: 'PUT',
+      body: JSON.stringify(form),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(response => {
+      fetch('http://localhost:5000/api/posts')
+      .then(resp => resp.json())
+      .then(posts => {
+        this.setState({posts: posts});
+      });
+      console.log(post);
+      this.setState({posts: posts, editing: null})
+
+    }).catch(function(error) {
+      console.log("ERROR:", error);
+
+    })
 }
 
 handleEdit(post) {
