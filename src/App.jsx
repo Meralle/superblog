@@ -7,7 +7,8 @@ class App extends React.Component {
     this.state={
       posts: [],
       form:{},
-      editing:null
+      editing:null,
+      // searchFilter: ""
 
     }
   }
@@ -26,23 +27,23 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    // this.handleSearchInput = this.handleSearchInput.bind(this)
     this.handleSorting = this.handleSorting.bind(this);
     
   }
 
    handleSubmit(e) {
    e.preventDefault();
-   console.log(e)
    let addPostForm = this.state.form;
- //   axios.post(`http://localhost:5000/api/posts`, addPostForm).then(response => {
- //     console.log("Slide added successful: ", response);
- //       fetch(`http://localhost:5000/api/posts`).then( resp => resp.json()).then(posts => {
- //         this.setState({posts: posts});
- //          M.toast({html: 'Post submit successfully!'})
- //     });
- //   }).catch(function(error){
- //     console.log("Errooooor: ", error);
- //   })
+   //   axios.post(`http://localhost:5000/api/posts`, addPostForm).then(response => {
+   //     console.log("Slide added successful: ", response);
+   //       fetch(`http://localhost:5000/api/posts`).then( resp => resp.json()).then(posts => {
+   //         this.setState({posts: posts});
+   //          M.toast({html: 'Post submit successfully!'})
+   //     });
+   //   }).catch(function(error){
+   //     console.log("Errooooor: ", error);
+   //   })
  // }
      fetch("http://localhost:5000/api/posts", {
         method: "POST",
@@ -55,137 +56,132 @@ class App extends React.Component {
           console.log(response)
           let posts = [...this.state.posts]
           posts.push(response.post)
-          this.setState({posts:posts});
+          this.setState({posts:posts, form:{name: "", content:"", order:""}});
           M.toast({html: 'Post submit successfully!'})
        });
 
-   }
-
-  handleChange(e){
-    e.preventDefault();
-    // console.log(e)
-  let sendPost = {...this.state.form}
-   sendPost[e.target.id]=e.target.value;
-   this.setState({form : sendPost});
   }
 
-  
-    
+    handleChange(e){
+      e.preventDefault(); 
+      let sendPost = {...this.state.form}
+      sendPost[e.target.id]=e.target.value;
+      this.setState({form : sendPost });
+  } 
+    //   axios.delete(`http://localhost:5000/api/posts/${id}`).then(response => {
+    //   console.log("Slide deleted successful: ", response);
+    //   fetch(`http://localhost:5000/api/posts`)
+    //   .then(response => response.json())
+    //   .then(posts => {
+    //     this.setState({posts : posts});
+    //     M.toast({html: 'Post delete successfully!'})
+    //   });
+    // }).catch(function(error){
+    //   console.log("Error: ", error);
+    // })
 
-  //   axios.delete(`http://localhost:5000/api/posts/${id}`).then(response => {
-  //   console.log("Slide deleted successful: ", response);
-  //   fetch(`http://localhost:5000/api/posts`)
-  //   .then(response => response.json())
-  //   .then(posts => {
-  //     this.setState({posts : posts});
-  //     M.toast({html: 'Post delete successfully!'})
-  //   });
-  // }).catch(function(error){
-  //   console.log("Error: ", error);
-  // })
+    handleDelete(id) {
+      let form = {...this.state.form};
+      fetch(`http://localhost:5000/api/posts/${id}`, {
+        method: 'DELETE',
+        body: JSON.stringify(form),
+        headers: {
+          'content-type': 'application/json'
+        }
 
-handleDelete(id) {
-
-    console.log(id);
-    let form = {...this.state.form};
-    fetch(`http://localhost:5000/api/posts/${id}`, {
-      method: 'DELETE',
-      body: JSON.stringify(form),
-      headers: {
-        'content-type': 'application/json'
-      }
-
-    }).then(response => {
-      console.log("response: ", response);
-      fetch(`http://localhost:5000/api/posts`)
-      .then(resp => resp.json())
-      .then(posts => {
-      this.setState({posts: posts});
-      });
-      }).catch(function(error) {
-      console.log("Error: ", error);
-      })
-
-  }
-
-
-// handleUpdate(event, post){
-//   event.preventDefault()
-//   axios.put(`http://localhost:5000/api/posts/${post._id}`,this.state.form).then(response => {
-//     console.log("Slide edited successful: " , response);
-//     fetch(`http://localhost:5000/api/posts`).then(response.json())
-//     .then(posts => {
-//       this.setState({posts : posts, editing: null});
-//         M.toast({html: 'Post updated successfully!'})
-//     });
-//   }).catch(function(error){
-//     console.log("Error: ", error);
-//   })
-
-// }
-
-handleUpdate(event, post) {
-    event.preventDefault();
-    let form = this.state.form;
-    let posts = [...this.state.posts];
-    console.log(posts);
-    fetch(`http://localhost:5000/api/posts/${post._id}`, {
-      method: 'PUT',
-      body: JSON.stringify(form),
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-    .then(response => {
-      fetch('http://localhost:5000/api/posts')
-      .then(resp => resp.json())
-      .then(posts => {
+      }).then(response => {
+        console.log("response: ", response);
+        fetch(`http://localhost:5000/api/posts`)
+        .then(resp => resp.json())
+        .then(posts => {
         this.setState({posts: posts});
-      });
-      console.log(post);
-      this.setState({posts: posts, editing: null})
+        });
+        }).catch(function(error) {
+        console.log("Error: ", error);
+        })
+  }
 
-    }).catch(function(error) {
-      console.log("ERROR:", error);
+    // handleUpdate(event, post){
+    //   event.preventDefault()
+    //   axios.put(`http://localhost:5000/api/posts/${post._id}`,this.state.form).then(response => {
+    //     console.log("Slide edited successful: " , response);
+    //     fetch(`http://localhost:5000/api/posts`).then(response.json())
+    //     .then(posts => {
+    //       this.setState({posts : posts, editing: null});
+    //         M.toast({html: 'Post updated successfully!'})
+    //     });
+    //   }).catch(function(error){
+    //     console.log("Error: ", error);
+    //   })
 
-    })
-}
+    // }
 
-handleEdit(post) {
-  this.setState({
-    from:post,
-    editing: post
-  })
-}
+    handleUpdate(event, post) {
+        event.preventDefault();
+        let form = this.state.form;
+        let posts = [...this.state.posts];
+        console.log(posts);
+        fetch(`http://localhost:5000/api/posts/${post._id}`, {
+          method: 'PUT',
+          body: JSON.stringify(form),
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+        .then(response => {
+          fetch('http://localhost:5000/api/posts')
+          .then(resp => resp.json())
+          .then(posts => {
+            this.setState({posts: posts});
+          });
+          console.log(post);
+          this.setState({posts: posts, editing: null})
 
-handleSorting(){
-  let order = this.state.posts.sort((a,b) => a.order - b.order)
-  this.setState({posts: order})
-}
+        }).catch(function(error) {
+          console.log("ERROR:", error);
 
-  render() {
-      const style = {
-        style1:{
-          display:"none"
-        },
-        margin:"0 1rem",
-      }
+        })
+  }
 
+    handleEdit(post) {
+      this.setState({
+        from:post,
+        editing: post
+      })
+  }
 
+    handleSorting(){
+      let order = this.state.posts.sort((a,b) => a.order - b.order)
+      this.setState({posts: order})
+  }
+//     handleSearchInput(e)  {            
+//       let searchFilter = e.currentTarget.value;
+//       this.setState({ searchFilter: searchFilter});      
+// }
+    render() {
+        const style = {
+          style1:{
+            display:"none"
+          },
+          margin:"0 1rem",
+        }
+
+      // let posts = [...this.state.posts]
+      // posts = posts.filter( i => i.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
       const posttemplate = this.state.posts.map((post,i)=> 
         this.state.editing && this.state.editing._id === post._id ? (
           <form key={i} onSubmit={(event) => this.handleUpdate(event, post)}>
             <div className="form-group">
               <label className="w-100">
               Name
-              <input className="input-field col s6" defaultValue={this.state.editing.name} onChange={this.handleChange} type="text" id="name" />
+              <input className="input-field col s6" value={this.state.editing.name} onChange={this.handleChange} type="text" id="name" />
               </label>
             </div> 
            
             <div>
               <label className="w-100">
               Content
-              <input   className="input-field col s6" defaultValue={this.state.editing.content} onChange={this.handleChange} type="text" id="content" />
+              <input   className="input-field col s6" value={this.state.editing.content} onChange={this.handleChange} type="text" id="content" />
               </label>
             </div>
             
@@ -213,21 +209,25 @@ handleSorting(){
       return (
       <div className="container">
        <div className="my-3">
+       <br />
+        <div className="input-field col s12">
+            <input id="title" type="text" placeholder="search" onChange={this.handleSearchInput} value={this.state.searchFilter} />
+        </div>
        <h2>Create a Post:</h2>  
          <form  id="form" onSubmit={this.handleSubmit}>
            <div className="form-group">  
              <label>Name: </label>    
-               <input  className="form-control" type="text" onChange={this.handleChange} id="name" />
+               <input  className="form-control" value={this.state.form.name} type="text" onChange={this.handleChange} id="name" />
            </div>    
                <br />
            <div className="form-group">    
              <label>Content: </label>  
-               <input  className="form-control" type="text" onChange={this.handleChange} id="content"  />
+               <input  className="form-control" value={this.state.form.content} type="text" onChange={this.handleChange} id="content"  />
            </div>    
                <br />
            <div className="form-group">    
              <label>Order: </label>  
-               <input  className="form-control" type="number" onChange={this.handleChange} id="order" />
+               <input  className="form-control" value={this.state.form.order} type="number" onChange={this.handleChange} id="order" />
            </div>    
             <button className="btn waves-effect waves-light" type="submit">Submit <i className="material-icons right">send</i></button>
                
@@ -247,3 +247,4 @@ handleSorting(){
 }
 export default App;
 
+ 
