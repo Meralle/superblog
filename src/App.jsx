@@ -1,6 +1,7 @@
 
 import React from 'react';
 import axios from 'axios';
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -240,7 +241,7 @@ class App extends React.Component {
                {posttemplate}
             </ul>  
           </div>
-           <footer className="small text-muted mb-5">&copy; 2018 meralle Halablyan</footer>
+           <footer className="small text-muted mb-5">&copy; 2018 Meralle Halablyan</footer>
         </div>
 
      
