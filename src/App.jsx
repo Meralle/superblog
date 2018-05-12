@@ -1,3 +1,4 @@
+
 import React from 'react';
 import axios from 'axios';
 
@@ -8,7 +9,7 @@ class App extends React.Component {
       posts: [],
       form:{},
       editing:null,
-      // searchFilter: ""
+      searchFilter: ""
 
     }
   }
@@ -27,7 +28,7 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    // this.handleSearchInput = this.handleSearchInput.bind(this)
+    this.handleSearchInput = this.handleSearchInput.bind(this)
     this.handleSorting = this.handleSorting.bind(this);
     
   }
@@ -154,10 +155,10 @@ class App extends React.Component {
       let order = this.state.posts.sort((a,b) => a.order - b.order)
       this.setState({posts: order})
   }
-//     handleSearchInput(e)  {            
-//       let searchFilter = e.currentTarget.value;
-//       this.setState({ searchFilter: searchFilter});      
-// }
+    handleSearchInput(e)  {            
+      let searchFilter = e.currentTarget.value;
+      this.setState({ searchFilter: searchFilter});      
+}
     render() {
         const style = {
           style1:{
@@ -166,29 +167,29 @@ class App extends React.Component {
           margin:"0 1rem",
         }
 
-      // let posts = [...this.state.posts]
-      // posts = posts.filter( i => i.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
+      let posts = [...this.state.posts]
+      posts = posts.filter( i => i.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
       const posttemplate = this.state.posts.map((post,i)=> 
         this.state.editing && this.state.editing._id === post._id ? (
           <form key={i} onSubmit={(event) => this.handleUpdate(event, post)}>
             <div className="form-group">
-              <label className="w-100">
+              <label className="">
               Name
-              <input className="input-field col s6" value={this.state.editing.name} onChange={this.handleChange} type="text" id="name" />
+              <input className="form-control"  value={this.state.editing.name} onChange={this.handleChange} type="text" id="name" />
               </label>
             </div> 
            
-            <div>
-              <label className="w-100">
+            <div className="form-group">
+              <label className="">
               Content
-              <input   className="input-field col s6" value={this.state.editing.content} onChange={this.handleChange} type="text" id="content" />
+              <input className="form-control"  value={this.state.editing.content} onChange={this.handleChange} type="text" id="content" />
               </label>
             </div>
             
-            <div>                      
-              <label className="w-100">
+            <div className="form-group">                      
+              <label className="">
               Order
-              <input className="input-field col s6" onChange={this.handleChange} type="text" id="order" />
+              <input className="form-control" onChange={this.handleChange} type="text" id="order" />
               </label>
             </div>
 
@@ -197,12 +198,12 @@ class App extends React.Component {
             </div>
             </form>
           ) : (
-              <li className="list-group-item" key={i}>
+              <li className="list-group-item  mb-3 z-depth-1 hoverable" key={i}>
                 <h4 className="mt-0">{post.name}</h4>
                 <p>{post.content}</p>
                 <p>{post.order}</p>
-                <button style={style} className="btn-floating btn-large waves-effect waves-light red "  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
-                <button style={style} className="btn-floating btn-large waves-effect waves-light red" onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
+                <button style={style} className="btn-floating btn-small waves-effect waves-light waves-light right z-depth-0 "  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
+                <button style={style} className="btn-floating btn-small waves-effect waves-light red right z-depth-0 " onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
               </li>
             )
         )
@@ -239,6 +240,7 @@ class App extends React.Component {
                {posttemplate}
             </ul>  
           </div>
+           <footer className="small text-muted mb-5">&copy; 2018 meralle Halablyan</footer>
         </div>
 
      
