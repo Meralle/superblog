@@ -170,7 +170,7 @@ class App extends React.Component {
 
       let posts = [...this.state.posts]
       posts = posts.filter( i => i.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
-      const posttemplate = this.state.posts.map((post,i)=> 
+      const posttemplate = posts.map((post,i)=> 
         this.state.editing && this.state.editing._id === post._id ? (
           <form key={i} onSubmit={(event) => this.handleUpdate(event, post)}>
             <div className="form-group">
@@ -239,6 +239,7 @@ class App extends React.Component {
             <h2>list of all posts:<button style={style} className="btn-floating btn-large waves-effect waves-light" onClick={this.handleSorting}><i className="material-icons expand_less expand_more">expand_less  expand_more</i></button></h2>
             <ul className="list-group">
                {posttemplate}
+
             </ul>  
           </div>
            <footer className="small text-muted mb-5">&copy; 2018 Meralle Halablyan</footer>
