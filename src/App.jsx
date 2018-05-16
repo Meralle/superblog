@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import axios from 'axios';
 import './App.css';
@@ -173,28 +174,29 @@ class App extends React.Component {
       const posttemplate = posts.map((post,i)=> 
         this.state.editing && this.state.editing._id === post._id ? (
           <form key={i} onSubmit={(event) => this.handleUpdate(event, post)}>
-            <div className="form-group">
-              <label className="">
-              Name
-              <input className="form-control"  value={this.state.editing.name} onChange={this.handleChange} type="text" id="name" />
-              </label>
+            <div className="input-field col s6">
+              <label> Name</label>
+              <input className="form-control"  defaultValue={this.state.editing.name}  onChange={this.handleChange} type="text" id="name" />
+              
             </div> 
            
-            <div className="form-group">
+            <div className="input-field col s6">
               <label className="">
               Content
-              <input className="form-control"  value={this.state.editing.content} onChange={this.handleChange} type="text" id="content" />
-              </label>
+               </label>
+              <input className="form-control" defaultValue={this.state.editing.content} onChange={this.handleChange} type="text" id="content" />
+             
             </div>
             
-            <div className="form-group">                      
+            <div className="input-field col s6">                      
               <label className="">
               Order
-              <input className="form-control" onChange={this.handleChange} type="text" id="order" />
-              </label>
+               </label>
+              <input className="form-control" defaultValue={this.state.editing.order}  onChange={this.handleChange} type="text" id="order" />
+             
             </div>
 
-            <div className="form-group">
+            <div className="input-field col s6">
               <button className="btn waves-effect waves-light" type="submit">Submit <i className="material-icons right">send</i></button>
             </div>
             </form>
