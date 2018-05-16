@@ -201,12 +201,12 @@ class App extends React.Component {
             </div>
             </form>
           ) : (
-              <li className="list-group-item  mb-3 z-depth-1 hoverable" key={i}>
-                <h4 className="mt-0">{post.name}</h4>
-                <p>{post.content}</p>
-                <p>{post.order}</p>
+              <li className="list-group-item  mb-3 z-depth-1 hoverable" key={i}><br/>
                 <button style={style} className="btn-floating btn-small waves-effect waves-light waves-light right z-depth-0 "  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
                 <button style={style} className="btn-floating btn-small waves-effect waves-light red right z-depth-0 " onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
+                <h5 className="thin condensed">{post.name}</h5>
+                <h5>{post.content}</h5>
+                <p>{post.order}</p>
               </li>
             )
         )
@@ -221,17 +221,17 @@ class App extends React.Component {
          <form  id="form" onSubmit={this.handleSubmit}>
            <div className="form-group">  
              <label>Name: </label>    
-               <input  className="form-control" value={this.state.form.name} type="text" onChange={this.handleChange} id="name" />
+               <input  className="form-control" defaultValue={this.state.form.name} type="text" onChange={this.handleChange} id="name" />
            </div>    
                <br />
            <div className="form-group">    
              <label>Content: </label>  
-               <input  className="form-control" value={this.state.form.content} type="text" onChange={this.handleChange} id="content"  />
+               <input  className="form-control" defaultValue={this.state.form.content} type="text" onChange={this.handleChange} id="content"  />
            </div>    
                <br />
            <div className="form-group">    
              <label>Order: </label>  
-               <input  className="form-control" value={this.state.form.order} type="number" onChange={this.handleChange} id="order" />
+               <input  className="form-control" defaultValue={this.state.form.order} type="number" onChange={this.handleChange} id="order" />
            </div>    
             <button className="btn waves-effect waves-light" type="submit">Submit <i className="material-icons right">send</i></button>
                
