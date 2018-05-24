@@ -7,7 +7,7 @@ This is a little node server with CRUD interface:
 1. Install npm stuff `npm i`
 2. Copy some of dependencies that required in your new folder and remove the others like 
     ( `webpack`, `materialize`,`mongoose`, `pug`, `axios`, `express`)
-    - using in the app database - MongoDB
+  - using in the app database - MongoDB
   
      *  ```npm install```
    
