@@ -161,13 +161,7 @@ class App extends React.Component {
       this.setState({ searchFilter: searchFilter});      
 }
     render() {
-        const style = {
-          style1:{
-            display:"none"
-          },
-          margin:"0 1rem",
-        }
-
+      
       let posts = [...this.state.posts]
       posts = posts.filter( i => i.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
       const posttemplate = posts.map((post,i)=> 
@@ -201,8 +195,8 @@ class App extends React.Component {
             </form>
           ) : (
               <li className="list-group-item  mb-3 z-depth-1 hoverable" key={i}><br/>
-                <button style={style} className="btn-floating btn-small waves-effect waves-light waves-light right z-depth-0 "  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
-                <button style={style} className="btn-floating btn-small waves-effect waves-light red right z-depth-0 " onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
+                <button className="btn-floating btn-small waves-effect waves-light waves-light right z-depth-0 "  onClick={() => this.handleEdit(post)}><i className="material-icons create">create</i></button>
+                <button className="btn-floating btn-small waves-effect waves-light red right z-depth-0 " onClick={() => this.handleDelete(post._id)}><i className="material-icons clear">clear</i></button>
                 <h5 className="thin condensed">{post.name}</h5>
                 <h5>{post.content}</h5>
                 <p>{post.order}</p>
@@ -237,7 +231,7 @@ class App extends React.Component {
          </form>
          </div>
           <div className="my-3"> 
-            <h2>list of all posts:<button style={style} className="btn-floating btn-large waves-effect waves-light" onClick={this.handleSorting}><i className="material-icons expand_less expand_more">expand_less  expand_more</i></button></h2>
+            <h2>list of all posts:<button className="btn-floating btn-large waves-effect waves-light" onClick={this.handleSorting}><i className="material-icons expand_less expand_more">expand_less  expand_more</i></button></h2>
             <ul className="list-group">
                {posttemplate}
 
