@@ -29,4 +29,6 @@ MONGOURL=mongodb://localhost/superblog
     name: String,
     content: String,
     order: Number
-}```
+}
+```
+![screenshot](./img/Superblog.png)
