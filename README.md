@@ -3,7 +3,6 @@
 
 This is a little node server with CRUD interface:
 
-
 # Installation
 1. Install npm stuff `npm i`
 2. Copy some of dependencies that required in your new folder and remove the others like 
@@ -24,7 +23,7 @@ This is a little node server with CRUD interface:
       
    5. Create .gitignore folder in the folder and add
    
-   ``` node_modules , .env ```
+    ``` node_modules , .env ```
 
 
 Create a copy of env file: `cp .env.example .env`  and set your credentials. Eg:
