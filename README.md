@@ -31,4 +31,4 @@ MONGOURL=mongodb://localhost/superblog
     order: Number
 }
 ```
-![screenshot](./img/Superblog.png)
+![screenshot](./image/Superblog.png)
