@@ -5,7 +5,25 @@ This is a little node server with CRUD interface:
 
 
 # Installation
-Install npm stuff `npm i`
+1. Install npm stuff `npm i`
+2. Copy some of dependencies that required in your new folder and remove the others like 
+    ( `webpack`, `materialize`,`mongoose`, `pug`, `axios`, `express`)
+  
+     *  ```npm install```
+   
+  3.  Install  bable
+  ``` https://babeljs.io/docs/plugins/transform-object-rest-spread ```
+  
+   4. Create .babelrc folder and paste 
+  
+    ```{
+    "plugins": [
+      ["transform-object-rest-spread", { "useBuiltIns": true }]
+    ] }
+      ```
+   5. Create .gitignore folder
+   
+
 
 Create a copy of env file: `cp .env.example .env`  and set your credentials. Eg:
 ```
