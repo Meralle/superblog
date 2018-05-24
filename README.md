@@ -22,7 +22,6 @@ This is a little node server with CRUD interface:
     ] }```
       
    5. Create .gitignore folder in the folder and add
-   
     ``` node_modules , .env ```
 
 
