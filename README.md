@@ -19,10 +19,10 @@ This is a little node server with CRUD interface:
     ```{
     "plugins": [
       ["transform-object-rest-spread", { "useBuiltIns": true }]
-    ] }
-      ```
+    ] }```
+      
    5. Create .gitignore folder
-   
+   ``` node_modules , .env ```
 
 
 Create a copy of env file: `cp .env.example .env`  and set your credentials. Eg:
