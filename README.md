@@ -1,5 +1,7 @@
 # Superblog API
 
+![screenshot](./image/Superblog.png)
+
 
 This is a little node server with CRUD interface:
 
@@ -49,4 +51,4 @@ MONGOURL=mongodb://localhost/superblog
     order: Number
 }
 ```
-![screenshot](./image/Superblog.png)
+
